@@ -7,10 +7,22 @@ in a scroll-led editorial style.
 
 ```bash
 pnpm install
-pnpm dev        # http://localhost:3100
+cp .env.example .env.local   # then point NEXT_PUBLIC_HERO_REEL_URL at the reel
+pnpm dev                     # http://localhost:3100
 ```
 
 `pnpm build` for a production build, `pnpm lint` / `npx tsc --noEmit` to check.
+
+## Environment
+
+| variable | required | notes |
+| --- | --- | --- |
+| `NEXT_PUBLIC_HERO_REEL_URL` | no | The homepage hero reel (~84MB, served from a CDN rather than bundled). |
+
+`NEXT_PUBLIC_` means Next inlines it at **build** time, so it has to be set
+wherever the build runs, not only where the site is served. Leaving it unset is
+supported: the hero renders without footage and keeps its own ground — verified
+by building with it absent.
 
 ## Stack
 
@@ -63,5 +75,7 @@ enclosed keyring holes. The cutouts are what the cards use.
 - `ProofOrb` and the `three` / `@react-three/fiber` / `@react-three/drei`
   dependencies are unreferenced since the heroes went to video.
 - `REEL.measureRelease` and `public/videos/v2web_vdo.mp4` are unused.
+- The hero reel currently points at a dev media host; move it to a production
+  one before launch by changing the environment variable.
 - Old `/products` URLs need redirects to `/shop` before this replaces the
   current site.

@@ -57,7 +57,11 @@ export default function HeroVideo({
 
   // Placed after the hook, not before it: an early return above a `useEffect`
   // changes the hook count between renders and React throws.
-  if (state === "failed") return null;
+  // An unset `NEXT_PUBLIC_HERO_REEL_URL` arrives here as an empty string.
+  // Rendering a <video> with no source would sit there as a dead black box and,
+  // depending on the browser, never fire `error` — so bail out and let the
+  // section fall back to its own ground, which is a state it was built for.
+  if (state === "failed" || !src) return null;
 
   return (
     <video
