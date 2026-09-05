@@ -1,0 +1,388 @@
+{
+  "_source": "The Fishtechy product catalog and US wholesale price list. Names, subtitles, descriptions, MSRPs, UPCs and SKU codes are the catalog's. Photography is the product shoot, hero first.",
+  "wholesaleTiers": [
+    {
+      "id": "msrp",
+      "label": "Retail MSRP",
+      "discount": 0,
+      "mult": 1,
+      "band": "List price"
+    },
+    {
+      "id": "wholesale45",
+      "label": "Wholesale 45%",
+      "discount": 0.45,
+      "mult": 0.55,
+      "band": "Up to $2,000"
+    },
+    {
+      "id": "gold",
+      "label": "Gold 50%",
+      "discount": 0.5,
+      "mult": 0.5,
+      "band": "$2,001 — $5,000"
+    },
+    {
+      "id": "platinum",
+      "label": "Platinum 55%",
+      "discount": 0.55,
+      "mult": 0.45,
+      "band": "Over $5,000"
+    }
+  ],
+  "lines": [
+    {
+      "slug": "proof-ball",
+      "name": "Proof Ball",
+      "intro": "A known dimension you can hold beside the fish. Clips to a keyring, floats, and reads from a single frame.",
+      "skus": [
+        {
+          "skuCode": "O1.4PBB",
+          "slug": "proof-ball-orange-1-4",
+          "name": "Proof Ball — Orange {dim}",
+          "subtitle": "Orange · {dim}",
+          "description": "The original reference sphere. Drops in the net, measures anything.",
+          "shopDescription": "The original, designed to be held next to a catch in hero shots. It also clips to a keyring, floats if you drop it, and pairs to your account with one tap — the simplest way to get verified measurements on everyday fish.",
+          "msrp": 35,
+          "upc": "198715 048926",
+          "availability": null,
+          "casePack": 24,
+          "images": [
+            {
+              "src": "/products/proof-ball-orange-1-4/product.webp",
+              "alt": "the {dim} orange Proof Ball with its keyring clip"
+            },
+            {
+              "src": "/products/proof-ball-orange-1-4/packaging-open.webp",
+              "alt": "the Proof Ball beside its retail box"
+            },
+            {
+              "src": "/products/proof-ball-orange-1-4/packaging.webp",
+              "alt": "the {dim} Proof Ball retail box"
+            },
+            {
+              "src": "/products/proof-ball-orange-1-4/in-use.webp",
+              "alt": "a largemouth bass measured in the Fishtechy app at 19.29 inches"
+            }
+          ],
+          "dimension": {
+            "value": 1.4,
+            "kind": "diameter"
+          },
+          "spin": [
+            {
+              "src": "/products/proof-ball-orange-1-4/spin/00.webp",
+              "alt": "The orange Proof Ball from the front"
+            },
+            {
+              "src": "/products/proof-ball-orange-1-4/spin/01.webp",
+              "alt": "The orange Proof Ball turned 45°"
+            },
+            {
+              "src": "/products/proof-ball-orange-1-4/spin/02.webp",
+              "alt": "The orange Proof Ball in profile"
+            },
+            {
+              "src": "/products/proof-ball-orange-1-4/spin/03.webp",
+              "alt": "The back of the orange Proof Ball"
+            },
+            {
+              "src": "/products/proof-ball-orange-1-4/spin/04.webp",
+              "alt": "The orange Proof Ball turned 315°"
+            }
+          ]
+        },
+        {
+          "skuCode": "O1.4PBTE1",
+          "slug": "proof-ball-pro-orange-1-4",
+          "name": "Proof Ball Pro (Temp Edition) — Orange {dim}",
+          "subtitle": "Orange · {dim} · Temperature Edition",
+          "description": "Bluetooth pairing, live water and air temperature with every catch, LED tournament verification.",
+          "msrp": 60,
+          "upc": "860016 087392",
+          "availability": null,
+          "casePack": 24,
+          "images": [
+            {
+              "src": "/products/proof-ball-pro-orange-1-4/product.webp",
+              "alt": "the {dim} orange Proof Ball Pro, its dial reading 58 degrees Fahrenheit"
+            },
+            {
+              "src": "/products/proof-ball-pro-orange-1-4/packaging-open.webp",
+              "alt": "the Proof Ball Pro beside its Temperature Edition box"
+            },
+            {
+              "src": "/products/proof-ball-pro-orange-1-4/packaging.webp",
+              "alt": "the Proof Ball Pro Temperature Edition retail box"
+            },
+            {
+              "src": "/products/proof-ball-pro-orange-1-4/in-use.webp",
+              "alt": "a brown trout measured in the Fishtechy app at 17.8 inches"
+            }
+          ],
+          "dimension": {
+            "value": 1.4,
+            "kind": "diameter"
+          },
+          "spin": [
+            {
+              "src": "/products/proof-ball-pro-orange-1-4/spin/00.webp",
+              "alt": "The orange Proof Ball Pro from the front, reading 58°F"
+            },
+            {
+              "src": "/products/proof-ball-pro-orange-1-4/spin/01.webp",
+              "alt": "The orange Proof Ball Pro turned 45°"
+            },
+            {
+              "src": "/products/proof-ball-pro-orange-1-4/spin/02.webp",
+              "alt": "The orange Proof Ball Pro in profile"
+            },
+            {
+              "src": "/products/proof-ball-pro-orange-1-4/spin/03.webp",
+              "alt": "The back of the orange Proof Ball Pro"
+            },
+            {
+              "src": "/products/proof-ball-pro-orange-1-4/spin/04.webp",
+              "alt": "The orange Proof Ball Pro turned 315°"
+            }
+          ]
+        },
+        {
+          "skuCode": "G2.1PBB",
+          "slug": "proof-ball-green-2-1",
+          "name": "Proof Ball — Green {dim}",
+          "subtitle": "Green · {dim}",
+          "description": "Sized for bigger fish and longer camera distances — tarpon, stripers and musky.",
+          "msrp": 40,
+          "upc": "199284 122734",
+          "availability": null,
+          "casePack": 24,
+          "images": [
+            {
+              "src": "/products/proof-ball-green-2-1/product.webp",
+              "alt": "the {dim} green Proof Ball with its keyring clip"
+            },
+            {
+              "src": "/products/proof-ball-green-2-1/packaging-open.webp",
+              "alt": "the green Proof Ball beside its retail box"
+            },
+            {
+              "src": "/products/proof-ball-green-2-1/packaging.webp",
+              "alt": "the {dim} green Proof Ball retail box"
+            }
+          ],
+          "dimension": {
+            "value": 2.1,
+            "kind": "diameter"
+          },
+          "spin": [
+            {
+              "src": "/products/proof-ball-green-2-1/spin/00.webp",
+              "alt": "The 2.1-inch green Proof Ball from the front"
+            },
+            {
+              "src": "/products/proof-ball-green-2-1/spin/01.webp",
+              "alt": "The 2.1-inch green Proof Ball turned 45°"
+            },
+            {
+              "src": "/products/proof-ball-green-2-1/spin/02.webp",
+              "alt": "The 2.1-inch green Proof Ball in profile"
+            },
+            {
+              "src": "/products/proof-ball-green-2-1/spin/03.webp",
+              "alt": "The back of the 2.1-inch green Proof Ball"
+            },
+            {
+              "src": "/products/proof-ball-green-2-1/spin/04.webp",
+              "alt": "The 2.1-inch green Proof Ball turned 315°"
+            }
+          ]
+        },
+        {
+          "skuCode": null,
+          "slug": "proof-ball-pro-green-2-1",
+          "name": "Proof Ball Pro (Temp Edition) — Green {dim}",
+          "subtitle": "Green · {dim} · Temperature Edition",
+          "description": "Bluetooth and temperature logging inside the high-visibility {dim} green ball.",
+          "msrp": null,
+          "upc": null,
+          "availability": "Coming 2027",
+          "casePack": null,
+          "images": [
+            {
+              "src": "/products/proof-ball-green-2-1/product.webp",
+              "alt": "the {dim} green Proof Ball body, shown here in the basic edition"
+            }
+          ],
+          "note": "No shoot of its own — the Pro's green shell is not photographed yet, so the image is the basic 2.1\" green body, which is the same ball.",
+          "dimension": {
+            "value": 2.1,
+            "kind": "diameter"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "proof-bar",
+      "name": "Proof Bar",
+      "intro": "A fixed reference that lives on your gear — net, cooler, gunnel or deck. Mount it once and measure your catch.",
+      "skus": [
+        {
+          "skuCode": "OGRNTPB2",
+          "slug": "temp-proof-bar-mini",
+          "name": "Temp Proof Bar Mini",
+          "subtitle": "Net Bar · Orange & Green · 2-pack",
+          "description": "Temporary adhesive bars for net handles. Each pack includes two bars in two colours.",
+          "msrp": 35,
+          "upc": "199874 851723",
+          "availability": null,
+          "casePack": 6,
+          "images": [
+            {
+              "src": "/products/temp-proof-bar-mini/product.webp",
+              "alt": "both bars from the Temp Proof Bar Mini two-pack, one orange and one green"
+            },
+            {
+              "src": "/products/temp-proof-bar-mini/packaging-open.webp",
+              "alt": "the Temp Proof Bar Mini beside its Proof Net Bar packaging"
+            },
+            {
+              "src": "/products/temp-proof-bar-mini/packaging.webp",
+              "alt": "the Proof Net Bar retail packaging"
+            }
+          ],
+          "spin": [
+            {
+              "src": "/products/temp-proof-bar-mini/spin/00.webp",
+              "alt": "The Temp Proof Bar Mini from the front"
+            },
+            {
+              "src": "/products/temp-proof-bar-mini/spin/01.webp",
+              "alt": "The Temp Proof Bar Mini turned 45°"
+            },
+            {
+              "src": "/products/temp-proof-bar-mini/spin/02.webp",
+              "alt": "The Temp Proof Bar Mini in profile"
+            },
+            {
+              "src": "/products/temp-proof-bar-mini/spin/03.webp",
+              "alt": "The back of the Temp Proof Bar Mini"
+            },
+            {
+              "src": "/products/temp-proof-bar-mini/spin/04.webp",
+              "alt": "The Temp Proof Bar Mini turned 315°"
+            }
+          ]
+        },
+        {
+          "skuCode": "OVAPB1",
+          "slug": "vinyl-proof-bar-orange-16",
+          "name": "Vinyl Proof Bar — Orange {dim}",
+          "subtitle": "Orange · {dim} · Surface mount",
+          "description": "Marine-grade adhesive backing for boats, gunnels, kayaks and coolers. Sits on any flat surface.",
+          "msrp": 35,
+          "upc": "860016 087330",
+          "availability": null,
+          "casePack": 6,
+          "images": [
+            {
+              "src": "/products/vinyl-proof-bar-orange-16/product.webp",
+              "alt": "the {dim} orange Vinyl Proof Bar"
+            },
+            {
+              "src": "/products/vinyl-proof-bar-orange-16/packaging-open.webp",
+              "alt": "the orange Vinyl Proof Bar beside its retail box"
+            },
+            {
+              "src": "/products/vinyl-proof-bar-orange-16/packaging.webp",
+              "alt": "the orange Vinyl Proof Bar retail box"
+            }
+          ],
+          "dimension": {
+            "value": 16,
+            "kind": "length"
+          }
+        },
+        {
+          "skuCode": "GVAPB1",
+          "slug": "vinyl-proof-bar-green-28",
+          "name": "Vinyl Proof Bar — Green {dim}",
+          "subtitle": "Green · {dim} · Surface mount",
+          "description": "Marine-grade adhesive backing for boats, gunnels, kayaks and coolers. Sits on any flat surface.",
+          "msrp": 40,
+          "upc": "860016 087347",
+          "availability": null,
+          "casePack": 6,
+          "images": [
+            {
+              "src": "/products/vinyl-proof-bar-green-28/product.webp",
+              "alt": "the {dim} green Vinyl Proof Bar"
+            },
+            {
+              "src": "/products/vinyl-proof-bar-green-28/packaging-open.webp",
+              "alt": "the green Vinyl Proof Bar beside its retail box"
+            },
+            {
+              "src": "/products/vinyl-proof-bar-green-28/packaging.webp",
+              "alt": "the green Vinyl Proof Bar retail box"
+            }
+          ],
+          "dimension": {
+            "value": 28,
+            "kind": "length"
+          }
+        },
+        {
+          "skuCode": "OBDPB1",
+          "slug": "eva-foam-proof-bar-orange-16",
+          "name": "EVA Foam Proof Bar — Orange {dim}",
+          "subtitle": "Orange · {dim} · Deck mount (6mm)",
+          "description": "Rigid decking-mount flush structure — a dedicated measuring station with tournament-grade repeatability.",
+          "msrp": 40,
+          "upc": "860016 087354",
+          "availability": null,
+          "casePack": 6,
+          "images": [
+            {
+              "src": "/products/eva-foam-proof-bar-orange-16/product.webp",
+              "alt": "the {dim} orange EVA Foam Proof Bar"
+            },
+            {
+              "src": "/products/eva-foam-proof-bar-orange-16/packaging.webp",
+              "alt": "the orange EVA Foam Proof Bar on its retail hang card"
+            }
+          ],
+          "dimension": {
+            "value": 16,
+            "kind": "length"
+          }
+        },
+        {
+          "skuCode": "GBDPB1",
+          "slug": "eva-foam-proof-bar-green-28",
+          "name": "EVA Foam Proof Bar — Green {dim}",
+          "subtitle": "Green · {dim} · Deck mount (6mm)",
+          "description": "Rigid decking-mount flush structure — a dedicated measuring station with tournament-grade repeatability.",
+          "msrp": 50,
+          "upc": "860016 087361",
+          "availability": null,
+          "casePack": 6,
+          "images": [
+            {
+              "src": "/products/eva-foam-proof-bar-green-28/product.webp",
+              "alt": "the {dim} green EVA Foam Proof Bar"
+            },
+            {
+              "src": "/products/eva-foam-proof-bar-green-28/packaging.webp",
+              "alt": "the green EVA Foam Proof Bar on its retail hang card"
+            }
+          ],
+          "dimension": {
+            "value": 28,
+            "kind": "length"
+          }
+        }
+      ]
+    }
+  ]
+}

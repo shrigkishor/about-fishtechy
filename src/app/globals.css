@@ -1,0 +1,538 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+ * Fishtechy web v2 — design tokens.
+ *
+ * The reference (portfolio4.zerasoftwarestudio.com) gets its rhythm from ONE
+ * structural move: a light ground with black panels that slide over it on
+ * rounded top corners. We keep that move and re-point it at Fishtechy's
+ * palette, so the alternation survives the rebrand:
+ *
+ *   ink   #0a0a0b  the ground, and the brand's existing canvas
+ *   slab  #111114  the panels that ride over it (features, works, app)
+ *   flare #ea8e50  the logo's lightest gradient stop, used FULL-BLEED with
+ *                  black type for the
+ *                  two signature beats — the manifesto ticker and the closing
+ *                  CTA. This is what stands in for the reference's bone.
+ *
+ * Three grounds rather than the reference's two, because #0a0a0b against pure
+ * black is not a legible alternation on its own — the charcoal slab carries
+ * the everyday sections and the orange carries the punctuation.
+ * ------------------------------------------------------------------------- */
+
+@theme {
+  --color-ink: #0a0a0b;
+  --color-ink-deep: #050506;
+  --color-slab: #111114;
+  --color-slab-raised: #17171b;
+  /* ---- Accent, taken from the logo itself ----------------------------------
+   * The mark's fish is a gradient, not one colour. Its stops run from a deep
+   * #C93727 in the shadows up through #EE4125 to #EA8E50 at the lightest, and
+   * every value below is one of those stops rather than a guess.
+   *
+   * `flare` is the LIGHTEST stop. It reads as a warm orange (hue 24deg) where
+   * the mid stops read as a red-vermilion, and it is far kinder on the dark
+   * ground the site is built on: 7.99:1 against ink, where #EE4125 managed
+   * 5.11:1 and the amber this all started from was never in the logo at all.
+   *
+   * `flare-deep` is the darkest stop and exists because `flare` inverts badly:
+   * on the bone product cards the light orange is 2.21:1 and unreadable, while
+   * the deep stop is 4.62:1 and fine. Light ground gets the deep end.
+   *
+   *   flare       #ea8e50  dark grounds — the default accent
+   *   flare-soft  #f2a877  a lift of the same hue, for hover on solid fills
+   *   flare-deep  #c93727  LIGHT grounds, and pressed states
+   * ------------------------------------------------------------------------ */
+  --color-flare: #ea8e50;
+  --color-flare-soft: #f2a877;
+  --color-flare-deep: #c93727;
+
+  /* ---- Secondary, also from the logo ---------------------------------------
+   * The blue in the mark's fin and eye, sampled at #0F4D86. It carries links
+   * and secondary buttons.
+   *
+   * TWO VALUES, because one cannot serve both grounds. The logo blue is dark:
+   * on bone it is a healthy 7.74:1, but on the ink page it is 2.29:1 — below
+   * AA for body text and below even the 3:1 floor for large text. A link nobody
+   * can read is not a brand application.
+   *
+   * `brand-blue-lit` is the same hue (209deg) and the same saturation (0.89)
+   * lifted in value until it clears AA on the dark surfaces: 4.76:1 on ink and
+   * 4.53:1 on slab. Same colour, different value — the relationship `flare` and
+   * `flare-soft` already have.
+   *
+   *   brand-blue      light grounds — bone cards, the white shop hero
+   *   brand-blue-lit  dark grounds  — everything on ink and slab
+   * ------------------------------------------------------------------------ */
+  --color-brand-blue: #0f4d86;
+  --color-brand-blue-lit: #187edb;
+
+  --color-bone: #f4f2ed;
+  --color-chalk: #fefefe;
+  --color-ash: #c9c9cf;
+  --color-ash-dim: #8a8a92;
+  --color-ash-faint: #55555c;
+
+  --color-line: rgba(255, 255, 255, 0.12);
+  --color-line-soft: rgba(255, 255, 255, 0.07);
+  --color-line-ink: rgba(10, 10, 11, 0.18);
+
+  --font-display: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-body: var(--font-roboto), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --radius-slab: 2.5rem;
+}
+
+:root {
+  color-scheme: dark;
+  /* The gutter the reference uses: generous, and it collapses hard on phones. */
+  --gutter: clamp(1.25rem, 4.4vw, 5rem);
+  --slab-radius: clamp(1.5rem, 3.6vw, 2.75rem);
+}
+
+* {
+  min-width: 0;
+}
+
+html {
+  /* Lenis owns the scroll; native smooth would fight it. */
+  scroll-behavior: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-chalk);
+  font-family: var(--font-body);
+  /* `clip`, NOT `hidden`. `overflow-x: hidden` makes the body a scroll
+     container, and a scroll-container ancestor silently disables
+     `position: sticky` in every descendant — which is what pins the hero's
+     reel. `clip` suppresses the same sideways overflow without creating one.
+     The paired `overflow-y: visible` is required: `clip` on one axis forces
+     the other to a clipping value unless it is stated. */
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+/* Lenis needs the root to stay unclipped while it transforms the wrapper. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--color-flare);
+  color: var(--color-ink);
+}
+
+/* --- Type tiers -----------------------------------------------------------
+ * The reference's signature is leading TIGHTER than the type size — 126px set
+ * on 88px, a 0.70 ratio. Taken literally that clips Space Grotesk's ascenders,
+ * which sit higher than Amiamie's, so the display tier lands at 0.84 and the
+ * optical effect survives without the tops of the caps being cut off.
+ * ------------------------------------------------------------------------ */
+
+.t-display {
+  font-family: var(--font-display);
+  /* Overridable per instance via `--display-size`: an arbitrary `text-[…]`
+     utility cannot win here, because this rule sits outside Tailwind's layers
+     and unlayered styles beat layered ones regardless of source order. */
+  font-size: var(--display-size, clamp(3.5rem, 11.5vw, 11rem));
+  line-height: 0.84;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.t-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5.6vw, 5.25rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.t-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.t-sub {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.9vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 300;
+}
+
+.t-body {
+  font-family: var(--font-body);
+  font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+.t-lede {
+  font-family: var(--font-body);
+  font-size: clamp(1.0625rem, 1.5vw, 1.375rem);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* The wide-tracked micro label the reference sets above every section. */
+.t-micro {
+  font-family: var(--font-mono);
+  font-size: clamp(0.625rem, 0.72vw, 0.75rem);
+  line-height: 1.2;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.t-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* --- Layout --------------------------------------------------------------- */
+
+.gutter {
+  padding-inline: var(--gutter);
+}
+
+/* The panel that rides over the ground on rounded top corners — the
+   reference's `rounded-t-4xl` slab, which is the whole structural trick. */
+.slab {
+  border-top-left-radius: var(--slab-radius);
+  border-top-right-radius: var(--slab-radius);
+  /* NO `position` HERE. It used to set `relative`, and because this rule is
+     unlayered it beat Tailwind's `sticky` utility — every stacked section that
+     also carried `.slab` silently fell back to `relative` and stopped sticking.
+     The caller declares its own position; `.slab-seam`'s ::before just needs
+     SOME positioned ancestor, and both `relative` and `sticky` provide one. */
+  z-index: 1;
+}
+.slab-close {
+  border-bottom-left-radius: var(--slab-radius);
+  border-bottom-right-radius: var(--slab-radius);
+}
+
+/* A hairline of brand orange along a slab's leading edge, so the seam between
+   two near-black grounds is legible rather than guessed at. */
+.slab-seam::before {
+  content: "";
+  position: absolute;
+  inset-inline: 8%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-flare) 45%,
+    var(--color-flare) 55%,
+    transparent
+  );
+  opacity: 0.55;
+}
+
+.rule {
+  height: 1px;
+  width: 100%;
+  background: var(--color-line);
+}
+
+/* --- Motion primitives ----------------------------------------------------
+ * GSAP drives the reveals; these are the pre-animation resting states, set in
+ * CSS so nothing flashes unstyled before the timelines attach.
+ * ------------------------------------------------------------------------ */
+
+.reveal-line {
+  display: block;
+  overflow: hidden;
+}
+.reveal-line > span {
+  display: block;
+  will-change: transform;
+}
+
+[data-reveal] {
+  opacity: 0;
+}
+
+/* Once the client bundle has hydrated, `js-ready` goes on <html>. Without it a
+   visitor with JS off would be left staring at a page of invisible text. */
+html:not(.js-ready) [data-reveal],
+html:not(.js-ready) [data-clip-reveal] {
+  opacity: 1;
+}
+html:not(.js-ready) .reveal-line > span {
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-clip-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .reveal-line > span {
+    transform: none !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* --- Marquee -------------------------------------------------------------- */
+
+.marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+}
+.marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--marquee-gap, 3rem);
+  padding-inline-end: var(--marquee-gap, 3rem);
+  animation: marquee-scroll var(--marquee-duration, 30s) linear infinite;
+  animation-direction: var(--marquee-direction, normal);
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* --- Hover-reveal product card (home page) --------------------------------
+ * `ProductRevealCard` keeps one sentence behind a hover state — the name, size
+ * and price are in the caption under the picture and always readable. The
+ * choreography lives here rather than in `group-hover:` utilities because it is
+ * a three-step sequence with a per-step delay, and that reads better written
+ * out once than spread across three copies of a sixteen-class string.
+ *
+ * Transitioned properties are `translate` and `opacity`, NOT `transform`:
+ * Tailwind compiles `translate-y-*` to the standalone `translate` property and
+ * leaves `transform` at `none`, so a transition naming `transform` animates
+ * nothing and the line snaps into place while only its opacity fades.
+ *
+ * `scale` on the media is likewise the standalone property, which is what lets
+ * it coexist with the reveal: `ClipReveal` drives the counter-move through
+ * GSAP's `transform` matrix, and the two compose instead of overwriting each
+ * other.
+ * ------------------------------------------------------------------------ */
+
+.reveal-card [data-reveal-detail] {
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out-expo);
+}
+
+.reveal-card [data-reveal-line] {
+  opacity: 0;
+  translate: 0 12px;
+  transition:
+    translate 0.5s var(--ease-out-expo),
+    opacity 0.5s var(--ease-out-expo);
+}
+
+.reveal-card [data-reveal-media] {
+  transition: scale 0.9s var(--ease-out-expo);
+}
+
+.reveal-card [data-reveal-ordinal] {
+  /* Resting colour is set in the component: an ink tint, because the media
+     plate is light. Only the hover target lives here. */
+  transition: color 0.5s var(--ease-out-expo);
+}
+
+.reveal-card:hover [data-reveal-detail],
+.reveal-card:focus-visible [data-reveal-detail] {
+  opacity: 1;
+}
+
+.reveal-card:hover [data-reveal-line],
+.reveal-card:focus-visible [data-reveal-line] {
+  opacity: 1;
+  translate: 0 0;
+  /* The stagger is only on the way IN. On the way out the lines leave together,
+     because a staggered exit reads as lag rather than as craft. */
+  transition-delay: var(--stagger, 0ms);
+}
+
+.reveal-card:hover [data-reveal-media],
+.reveal-card:focus-visible [data-reveal-media] {
+  scale: 1.05;
+}
+
+.reveal-card:hover [data-reveal-ordinal],
+.reveal-card:focus-visible [data-reveal-ordinal] {
+  color: var(--color-flare);
+}
+
+/* On a touch screen the hover state is unreachable, so the sentence is pinned
+   open. Keyed on the pointer, not a width breakpoint: it is the input device
+   that decides whether hover can ever fire, so a touch laptop matches too. */
+@media (hover: none) {
+  .reveal-card [data-reveal-detail],
+  .reveal-card [data-reveal-line] {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-card [data-reveal-detail],
+  .reveal-card [data-reveal-line],
+  .reveal-card [data-reveal-media],
+  .reveal-card [data-reveal-ordinal] {
+    transition: none;
+  }
+}
+
+/* The track's own scrollbar is noise: the rule under it already reports
+   position, and on macOS the bar only appears mid-scroll anyway, which makes
+   the layout twitch. Scrolling still works by every other means. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Revealed footer ------------------------------------------------------
+ * Fixed only while it fits the viewport. `FooterReveal` flips the attribute
+ * after measuring, and the static branch is what keeps a tall footer reachable
+ * on a short window — a fixed element cannot be scrolled to.
+ * ------------------------------------------------------------------------ */
+
+.footer-reveal[data-revealed="true"] {
+  position: fixed;
+}
+
+.footer-reveal[data-revealed="false"] {
+  position: static;
+}
+
+/* --- Footer wordmark -----------------------------------------------------
+ * A torch that follows the pointer: orange where the cursor is, falling off to
+ * the neutral stroke colour by ~280px, painted into the glyphs themselves. The
+ * centre defaults far off-canvas so the word sits plain grey until pointed at.
+ *
+ * Transcribed from the current site's `.ft-watermark`, with its
+ * `action-primary` / `accent-light` mapped onto this site's flare ramp.
+ * ------------------------------------------------------------------------ */
+
+.ft-watermark-wrap {
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  /* Signals that the word responds to the pointer. Deliberately not a hand:
+     it is not a link, and a pointer cursor would promise a navigation that
+     never happens. */
+  cursor: crosshair;
+}
+
+.ft-watermark {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: min(210px, 14.8vw);
+  line-height: 1.06;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+
+  /* The base colour, and the fallback: `background-clip: text` paints nothing
+     if the gradient fails, which would leave the word invisible rather than
+     merely unlit. Declaring a real colour first means the worst case is a
+     plain solid wordmark. */
+  color: var(--color-ash-faint);
+
+  background-image: radial-gradient(
+    circle 280px at var(--torch-x, -60vw) var(--torch-y, 50%),
+    var(--color-flare) 0%,
+    var(--color-flare-soft) 22%,
+    var(--color-ash-faint) 58%,
+    rgba(255, 255, 255, 0.14) 78%
+  );
+}
+
+/* Only take the glyphs transparent where the clip is actually supported. */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .ft-watermark {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* No pointer to follow on touch, so the torch parks over the centre of the
+   word and it glows by default rather than sitting permanently grey. */
+@media (hover: none), (pointer: coarse) {
+  .ft-watermark {
+    background-image: radial-gradient(
+      circle 280px at 50% 50%,
+      var(--color-flare) 0%,
+      var(--color-flare-soft) 22%,
+      var(--color-ash-faint) 58%,
+      rgba(255, 255, 255, 0.14) 78%
+    );
+  }
+}
+
+/* --- Controls ------------------------------------------------------------- */
+
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.15em;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+:where(a, button):focus-visible {
+  outline: 2px solid var(--color-flare);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
