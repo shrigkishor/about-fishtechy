@@ -59,7 +59,7 @@ export default function LineupSection() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="t-micro text-brand-blue-lit link-underline"
+                  className="t-micro text-brand-blue-lit link-underline tap-safe"
                 >
                   {link.label} →
                 </Link>

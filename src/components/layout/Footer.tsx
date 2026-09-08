@@ -73,7 +73,14 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="t-micro text-ash-dim hover:text-flare transition-colors"
+                  /* `inline-block py-2` rather than `tap-safe`: these wrap on
+                     a phone, and the row below is more social links — real
+                     interactive neighbours. An invisible 44px band would reach
+                     across the 8px row gap and swallow them. Padding grows the
+                     box itself, so the rows separate as the targets do: 12px of
+                     `t-micro` plus 16px comes to 28px, clear of the 24px
+                     minimum, and no underline here to knock out of place. */
+                  className="t-micro text-ash-dim hover:text-flare inline-block py-2 transition-colors"
                 >
                   {social.label}
                 </a>
