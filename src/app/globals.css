@@ -541,6 +541,43 @@ html:not(.js-ready) .reveal-line > span {
   transform-origin: left;
 }
 
+/* --- Tap targets ----------------------------------------------------------
+ * WCAG 2.5.8 asks for a pointer target of at least 24x24 CSS px, and exempts
+ * links set inline in a sentence — those are sized by the surrounding text's
+ * line-height, and growing them would steal taps from the words above and
+ * below. The FAQ's "Get in touch" sits inside a paragraph and is left alone
+ * for exactly that reason.
+ *
+ * The contact links are not that exemption. They are standalone links under
+ * their own label in a card, and at the `t-sub` tier they come to 18px x 1.2
+ * leading = 21.6px on a phone: two pixels short, with nothing forcing it.
+ *
+ * GROWN WITH A PSEUDO-ELEMENT, NOT PADDING. `.link-underline::after` is pinned
+ * to `bottom: -0.15em` of the PADDING box, so `padding-block` here would push
+ * the rule away from the text it underlines. A transparent `::before` overlay
+ * changes only the hit region — layout, baseline and underline all stay where
+ * they were — and a pseudo-element of an <a> is part of that link's own target.
+ *
+ * `::before` is free on these: `.link-underline` only ever uses `::after`.
+ *
+ * 44px rather than the bare 24px minimum, because that is the size a fingertip
+ * actually wants and the labels above these links are plain text with nothing
+ * to steal a tap from. Use it only where the neighbours are non-interactive.
+ */
+.tap-safe {
+  position: relative;
+}
+.tap-safe::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  translate: 0 -50%;
+  height: 100%;
+  min-height: 44px;
+}
+
 :where(a, button):focus-visible {
   outline: 2px solid var(--color-flare);
   outline-offset: 3px;

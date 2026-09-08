@@ -34,7 +34,7 @@ export default function ContactPage() {
               <p className="t-micro text-flare">{channel.label}</p>
               <a
                 href={channel.href}
-                className="t-sub text-brand-blue-lit link-underline self-start"
+                className="t-sub text-brand-blue-lit link-underline tap-safe self-start"
               >
                 {channel.value}
               </a>

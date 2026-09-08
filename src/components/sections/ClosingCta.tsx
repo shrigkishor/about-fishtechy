@@ -74,7 +74,7 @@ export default function ClosingCta({
                 <p className="t-micro text-ink/50 mb-2">{channel.label}</p>
                 <Link
                   href={channel.href}
-                  className="t-sub text-ink link-underline"
+                  className="t-sub text-ink link-underline tap-safe"
                 >
                   {channel.value}
                 </Link>
