@@ -148,7 +148,17 @@ html.lenis body {
   /* Overridable per instance via `--display-size`: an arbitrary `text-[…]`
      utility cannot win here, because this rule sits outside Tailwind's layers
      and unlayered styles beat layered ones regardless of source order. */
-  font-size: var(--display-size, clamp(3.5rem, 11.5vw, 11rem));
+  /* THE FLOOR IS 2.25rem, NOT 3.5rem. A clamp's minimum is the size the type
+     STOPS shrinking at, and 3.5rem held at 56px on every viewport below 487px
+     — where the 11.5vw term finally overtakes it. `PageHero` sets its lines
+     from an array and each one is a `.reveal-line`, which is `overflow:
+     hidden`, so a line too wide for the column was not wrapped or scrolled but
+     silently CROPPED: "your smartphone" measured 343px inside a 320px box on a
+     360px phone, and the page's own title read "SMARTPHON". The floor now
+     clears the narrowest phone — at 320px the vw term gives 36.8px and that
+     same line comes to 225px in a 280px box — so the author's line breaks
+     survive instead of the words being cut off. */
+  font-size: var(--display-size, clamp(2.25rem, 11.5vw, 11rem));
   line-height: 0.84;
   letter-spacing: -0.035em;
   font-weight: 500;

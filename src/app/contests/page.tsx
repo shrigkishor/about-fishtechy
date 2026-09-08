@@ -34,8 +34,11 @@ export default function ContestsPage() {
       <section className="gutter py-16 lg:py-24">
         <Reveal y={30}>
           <div className="bg-slab overflow-hidden rounded-3xl border border-[color:var(--color-line-soft)]">
-            <div className="flex items-center justify-between gap-4 border-b border-[color:var(--color-line-soft)] px-6 py-5 lg:px-9">
-              <div className="flex items-center gap-3">
+            {/* `flex-wrap` + `shrink-0` on the label: at 360px the footnote is
+                long enough to squeeze the live label down to 18px and crop it
+                to "Li". The footnote drops to its own line instead. */}
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-[color:var(--color-line-soft)] px-6 py-5 lg:px-9">
+              <div className="flex shrink-0 items-center gap-3">
                 <span
                   aria-hidden
                   className="bg-flare size-1.5 animate-pulse rounded-full"
@@ -51,25 +54,36 @@ export default function ContestsPage() {
 
             <ol className="list-none">
               {CONTESTS.leaderboard.rows.map((row, i) => (
+                /* FIVE COLUMNS ONLY WHERE FIVE COLUMNS FIT. The `min-w-[Nch]`
+                   floors add up to ~35ch of unshrinkable row, which a 272px
+                   phone column cannot hold — and because `* { min-width: 0 }`
+                   lets a flex item shrink under its content, the name did not
+                   wrap, it overflowed and was cropped by the card's
+                   `overflow-hidden`: "Elias Montgomery" lost 37px of itself.
+                   Below `sm` the row is a two-line block instead — rank and
+                   name on top, the reading and its status beneath — and the
+                   `min-w` floors only apply from `sm`, where there is room. */
                 <li
                   key={row.name}
-                  className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-[color:var(--color-line-soft)] px-6 py-5 last:border-b-0 lg:px-9"
+                  className="flex flex-wrap items-center gap-x-6 gap-y-1.5 border-b border-[color:var(--color-line-soft)] px-6 py-5 last:border-b-0 max-sm:gap-y-2.5 lg:px-9"
                 >
                   <span className="t-num text-ash-faint w-8 shrink-0 text-sm">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="t-sub text-chalk min-w-[12ch] flex-1">
+                  <span className="t-sub text-chalk flex-1 max-sm:basis-[calc(100%-3.5rem)] sm:min-w-[12ch]">
                     {row.name}
                   </span>
-                  <span className="t-body text-ash-dim min-w-[16ch] text-[0.9375rem]">
+                  <span className="t-body text-ash-dim text-[0.9375rem] max-sm:pl-14 sm:min-w-[16ch]">
                     {row.species}
                   </span>
-                  <span className="t-num text-chalk min-w-[7ch] text-[1.0625rem]">
+                  <span className="t-num text-chalk text-[1.0625rem] sm:min-w-[7ch]">
                     {row.length}
                   </span>
                   <span
                     className={cn(
-                      "t-micro rounded-full border px-3 py-1.5",
+                      // `ml-14` matches the species' `pl-14`, so everything
+                      // stacked under the name shares its left edge.
+                      "t-micro shrink-0 rounded-full border px-3 py-1.5 max-sm:ml-14",
                       statusTone(row.status)
                     )}
                   >
