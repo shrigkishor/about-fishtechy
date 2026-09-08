@@ -75,7 +75,5 @@ enclosed keyring holes. The cutouts are what the cards use.
 - `ProofOrb` and the `three` / `@react-three/fiber` / `@react-three/drei`
   dependencies are unreferenced since the heroes went to video.
 - `REEL.measureRelease` and `public/videos/v2web_vdo.mp4` are unused.
-- The hero reel currently points at a dev media host; move it to a production
-  one before launch by changing the environment variable.
 - Old `/products` URLs need redirects to `/shop` before this replaces the
   current site.
