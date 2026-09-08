@@ -15,7 +15,20 @@ import { CAPABILITIES } from "@/content/site";
  */
 export default function CapabilityTicker() {
   return (
-    <section aria-label="What the app does" className="py-6">
+    /* `overflow-x-clip` CONTAINS THE DRIFT. `ScrollDrift x={-160}` translates a
+       full-width wrapper by up to 80px either way, and 80px of a full-width row
+       hanging off the right edge is 80px the document can be scrolled sideways
+       — measured at exactly that on a 768px viewport. The body's own
+       `overflow-x: clip` does not catch it: `clip` on the body is not
+       propagated to the viewport the way `hidden` is, so the containment has to
+       be declared on the section that actually holds the moving element.
+       `clip`, not `hidden`, for the reason given in `globals.css` — `hidden`
+       would make this a scroll container and break `position: sticky` for
+       anything inside it. */
+    <section
+      aria-label="What the app does"
+      className="overflow-x-clip py-6"
+    >
       <div className="rule" />
       {/* The row loops on its own and scroll shoves it further along, so the
           speed reads as reactive rather than metronomic. The drift is on a

@@ -40,6 +40,9 @@ export default function DragScroller({
    * Drive the track from the PAGE's vertical scroll: the section holds still
    * while the row moves left, then releases to the section below once the last
    * card lands. Drag still works on top of it.
+   *
+   * FROM `lg` ONLY. Below it the section does not pin and the row is swiped
+   * directly — see the frame at the foot of this file for why.
    */
   scrollDriven = false,
   /** Content that pins along with the track — a heading, links. */
@@ -131,30 +134,47 @@ export default function DragScroller({
      * exactly as the last card lands. It is measured rather than guessed, and
      * re-measured on refresh — card widths are in `vw`, so the distance changes
      * with the window.
+     *
+     * SCOPED TO THE SAME `lg` THE PIN IS. Below it the frame is an ordinary
+     * block and the track is swiped by hand, so driving `scrollLeft` from page
+     * scroll there would drag the row out from under the finger. The
+     * `matchMedia` cleanup runs when the query stops matching — on a rotate, or
+     * on a desktop window dragged narrow — and clearing the inline height there
+     * is what hands the sizer back to the stylesheet instead of stranding a
+     * `calc(100svh + 2240px)` on a phone.
      */
     let ctx: gsap.Context | null = null;
     if (scrollDriven && sizer.current) {
       const sizerEl = sizer.current;
       ctx = gsap.context(() => {
-        const distance = () => Math.max(0, el.scrollWidth - el.clientWidth);
-        const proxy = { x: 0 };
+        const mm = gsap.matchMedia();
 
-        gsap.to(proxy, {
-          x: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sizerEl,
-            start: "top top",
-            end: () => `+=${distance()}`,
-            scrub: true,
-            invalidateOnRefresh: true,
-            onRefresh: () => {
-              sizerEl.style.height = `calc(100svh + ${distance()}px)`;
+        mm.add("(min-width: 1024px)", () => {
+          const distance = () => Math.max(0, el.scrollWidth - el.clientWidth);
+          const proxy = { x: 0 };
+
+          gsap.to(proxy, {
+            x: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sizerEl,
+              start: "top top",
+              end: () => `+=${distance()}`,
+              scrub: true,
+              invalidateOnRefresh: true,
+              onRefresh: () => {
+                sizerEl.style.height = `calc(100svh + ${distance()}px)`;
+              },
+              onUpdate: self => {
+                el.scrollLeft = self.progress * distance();
+              },
             },
-            onUpdate: self => {
-              el.scrollLeft = self.progress * distance();
-            },
-          },
+          });
+
+          return () => {
+            sizerEl.style.height = "";
+            el.scrollLeft = 0;
+          };
         });
       }, sizerEl);
     }
@@ -184,7 +204,9 @@ export default function DragScroller({
           // cards' own height, and `overflow-hidden` on the frame then cut
           // their bottoms off. Measured at 567px of card in a 502px track.
           "no-scrollbar flex shrink-0 overflow-x-auto overscroll-x-contain",
-          !scrollDriven && "snap-x snap-mandatory",
+          // A scroll-driven rail is hand-driven below `lg`, where its pin is
+          // off, so it wants snapping there too.
+          scrollDriven ? "max-lg:snap-x max-lg:snap-mandatory" : "snap-x snap-mandatory",
           dragging ? "cursor-grabbing select-none" : "cursor-grab",
           trackClassName,
         )}
@@ -209,7 +231,15 @@ export default function DragScroller({
 
   return (
     <div ref={sizer} className={className}>
-      <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden">
+      {/* PINNED ONLY FROM `lg`. The pin promises the rail fits on one screen,
+          and a card sized in `vw` breaks that promise on any short viewport: a
+          landscape phone (844x390) takes the `sm:` card width of 46vw = 388px,
+          whose 4/5 media alone is 485px tall, and `justify-center` then cut 174px
+          off the TOP and 174px off the bottom of a 738px rail with no way to
+          reach either — the frame is pinned, so there is nothing to scroll.
+          Below `lg` the frame is an ordinary block that grows to its cards and
+          the track is swiped by hand, which is the native gesture there anyway. */}
+      <div className="relative flex min-h-svh flex-col justify-center overflow-hidden lg:sticky lg:top-0 lg:h-svh">
         {rail}
       </div>
     </div>

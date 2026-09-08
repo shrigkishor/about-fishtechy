@@ -4,7 +4,7 @@ import Reveal from "@/components/motion/Reveal";
 import ScrollDrift from "@/components/motion/ScrollDrift";
 import CtaLink from "@/components/ui/CtaLink";
 import { CONTACT } from "@/content/pages";
-import { STACK_FRAME, STACK_SIZER } from "@/lib/stack";
+import { STACK_FRAME, STACK_PAD, STACK_SIZER } from "@/lib/stack";
 
 /**
  * The closing panel — the site's second and last full-bleed orange beat.
@@ -28,7 +28,7 @@ export default function ClosingCta({
     <section className={STACK_SIZER}>
       <div
         data-ground="light"
-        className={`bg-flare text-ink slab slab-seam ${STACK_FRAME}`}
+        className={`bg-flare text-ink slab slab-seam ${STACK_PAD} ${STACK_FRAME}`}
       >
         <div className="gutter">
           <Reveal y={14}>

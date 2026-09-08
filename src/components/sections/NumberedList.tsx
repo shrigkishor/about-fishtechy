@@ -4,7 +4,7 @@ import { useRef } from "react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { gsap } from "@/lib/gsap";
 import { useIsomorphicLayoutEffect } from "@/lib/useIsomorphicLayoutEffect";
-import { STACK_FRAME, STACK_SIZER } from "@/lib/stack";
+import { STACK_FRAME, STACK_PAD, STACK_SIZER } from "@/lib/stack";
 
 /**
  * Numbered rows — the reference's service list, and the shape it uses whenever
@@ -113,7 +113,7 @@ export default function NumberedList({
 
   return (
     <section className={STACK_SIZER}>
-      <div className={`bg-slab slab slab-seam gutter ${STACK_FRAME}`}>
+      <div className={`bg-slab slab slab-seam gutter ${STACK_PAD} ${STACK_FRAME}`}>
         <SectionHeader eyebrow={eyebrow} heading={heading} />
 
         <div ref={root} className="mt-6">

@@ -6,7 +6,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import Reveal from "@/components/motion/Reveal";
 import { FAQ } from "@/content/site";
 import { cn } from "@/lib/cn";
-import { STACK_FRAME, STACK_SIZER } from "@/lib/stack";
+import { STACK_FRAME, STACK_PAD, STACK_SIZER } from "@/lib/stack";
 
 /**
  * The FAQ, as a single-open accordion.
@@ -25,7 +25,7 @@ export default function FaqSection() {
 
   return (
     <section className={STACK_SIZER}>
-      <div className={`bg-ink gutter ${STACK_FRAME}`}>
+      <div className={`bg-ink gutter ${STACK_PAD} ${STACK_FRAME}`}>
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.4fr] lg:gap-20">
           <div>
             <SectionHeader eyebrow={FAQ.eyebrow} heading={FAQ.heading} />
